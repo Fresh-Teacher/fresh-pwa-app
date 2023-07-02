@@ -1,38 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
 
 const repo = "https://freshteacher.software";
-let deferredPrompt;
-
+let deferredPrompt;  
+    
 function App() {
   const [installable, setInstallable] = useState(false);
 
   useEffect(() => {
-    const beforeInstallPromptHandler = (e) => {
+    window.addEventListener("beforeinstallprompt", (e) => {
       // Prevent the mini-infobar from appearing on mobile
       e.preventDefault();
       // Stash the event so it can be triggered later.
       deferredPrompt = e;
-      // Update UI to notify the user they can install the PWA
+      // Update UI notify the user they can install the PWA
       setInstallable(true);
-    };
-
-    window.addEventListener("beforeinstallprompt", beforeInstallPromptHandler);
+    });
 
     window.addEventListener('appinstalled', () => {
       // Log install to analytics
       console.log('INSTALL: Success');
     });
-
-    return () => {
-      window.removeEventListener("beforeinstallprompt", beforeInstallPromptHandler);
-    };
   }, []);
 
-  const handleInstallClick = () => {
-    if (deferredPrompt) {
-      // Hide the app-provided install promotion
+  const handleInstallClick = (e) => {
+      // Hide the app provided install promotion
       setInstallable(false);
       // Show the install prompt
       deferredPrompt.prompt();
@@ -43,27 +35,20 @@ function App() {
         } else {
           console.log('User dismissed the install prompt');
         }
-        deferredPrompt = null;
       });
-    }
   };
-
+  
   return (
     <div className="App">
       <header className="App-header">
         <h2>Fresh Teacher's Technologies</h2>
-        {installable && (
-          <button className="install-button btn btn-primary" onClick={handleInstallClick}>
-            <span><strong>INSTALL FRESH TEACHER'S APP ⬇️</strong></span> 
-           
-
+        {installable &&
+          <button className="install-button" onClick={handleInstallClick}>
+            INSTALL THE FRESH APP
           </button>
-        )}
-        <p><br />
-          <a href={repo} className="btn btn-success App-link">
-            
-            <span><b>GO TO FRESH TEACHER'S E-LIBRARY 📚</b></span> 
-          </a>
+        }
+        <p>
+          <a href={repo} className="App-link">Go to Fresh Teacher's e-Library</a>
         </p>
       </header>
     </div>
