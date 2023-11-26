@@ -1,43 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Access free lesson notes, past papers and schemes of work from the NPJS App"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namungoona Parent's Junior School</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Custom CSS for rotating spiral -->
+    <style>
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>Install NPJS App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+        .rotating-spiral {
+            width: 40px;
+            height: 40px;
+            border: 5px solid #3498db;
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            animation: rotate 1s linear infinite;
+        }
+    </style>
+</head>
+<body>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    <div class="jumbotron text-center" style="background-image: url('jumbotron.jpg'); background-size: cover; color: white;">
+        <h1 class="display-5">Namungoona Parent's Junior School</h1>
+    </div>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+    <div class="container">
+        <form onsubmit="return validateForm()" class="mt-5">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Login</button>
+            <p id="guestSignIn" style="cursor: pointer; color: blue; text-decoration: underline;"><em>Sign in as Guest</em></p>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        document.getElementById('guestSignIn').addEventListener('click', function() {
+            playWelcomeSpeech();
+            window.location.href = 'homepage.html';
+        });
+    
+        function playWelcomeSpeech() {
+            var speechSynthesis = window.speechSynthesis;
+    
+            // Create a new speech synthesis utterance
+            var welcomeMessage = new SpeechSynthesisUtterance('You are most welcome!');
+    
+            // Set the voice (customize as needed)
+            welcomeMessage.voice = speechSynthesis.getVoices()[0];
+    
+            // Play the welcome message
+            speechSynthesis.speak(welcomeMessage);
+        }
+    
+        function showLoadingMessage() {
+            var loadingContainer = document.createElement('div');
+            loadingContainer.style.position = 'fixed';
+            loadingContainer.style.top = '50%';
+            loadingContainer.style.left = '50%';
+            loadingContainer.style.transform = 'translate(-50%, -50%)';
+            loadingContainer.style.display = 'flex';
+            loadingContainer.style.flexDirection = 'column';
+            loadingContainer.style.alignItems = 'center';
+            loadingContainer.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            loadingContainer.style.padding = '20px';
+            loadingContainer.style.borderRadius = '10px';
+            
+            var rotatingSpiral = document.createElement('div');
+            rotatingSpiral.classList.add('rotating-spiral');
+    
+            var loadingText = document.createElement('p');
+            loadingText.innerText = 'Logging in...';
+    
+            loadingContainer.appendChild(rotatingSpiral);
+            loadingContainer.appendChild(loadingText);
+    
+            document.body.appendChild(loadingContainer);
+    
+            setTimeout(function () {
+                document.body.removeChild(loadingContainer);
+                playWelcomeSpeech();
+                window.location.href = 'homepage.html';
+            }, 2000); // Adjust the duration as needed
+        }
+    
+        function validateForm() {
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+
+            if (email === 'npjs@namungoona.com' && password === 'npjs') {
+                showLoadingMessage();
+            } else {
+                alert('Access denied! Incorrect email or password...');
+            }
+
+            return false;
+        }
+    </script>
+    
+</body>
 </html>
