@@ -3,65 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <!-- Bootstrap CSS -->
+    <title>Home Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .login-container {
-            margin-top: 5%;
-        }
-    </style>
 </head>
-<body>
-    <div class="container login-container">
+<body class="bg-light">
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <!-- Disable close button -->
+                    <button type="button" class="close" aria-label="Close" style="display: none;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-block" onclick="validateLogin()">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Page Content -->
+    <div class="container mt-5" id="homeContent" style="display: none;">
         <div class="row justify-content-center">
-            <div class="col-md-6 col-sm-8">
+            <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">
-                        <h2 class="text-center">Login</h2>
+                    <div class="card-header bg-success text-white">
+                        <h4 class="text-center">Home Page</h4>
                     </div>
                     <div class="card-body">
-                        <form id="loginForm" onsubmit="return validateForm()">
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password:</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter password" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
-                        </form>
+                        <p>This is the content of the home page. You can customize this section.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        function validateForm() {
+        // Function to show the modal on page load
+        $(document).ready(function(){
+            $('#loginModal').modal('show');
+        });
+
+        function validateLogin() {
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
 
-            // Check if the email and password match
+            // Check if email and password match the predefined values
             if (email === "npjs@namungoona.com" && password === "npjs") {
-                // Redirect to home.html
-                window.location.href = "home.html";
-                return false;
+                // Close the modal
+                $('#loginModal').modal('hide');
+                // Show the home content
+                document.getElementById("homeContent").style.display = "block";
             } else {
-                // Display an error message (you can customize this part)
-                alert("Invalid email or password");
-                return false;
+                alert("Invalid login credentials. Please try again.");
             }
         }
     </script>
+
 </body>
 </html>
