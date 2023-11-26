@@ -48,7 +48,7 @@ function App() {
           </button>
         }
         <p>
-          <a href={repo} className="App-link">Go to Homepage 🏠</a>
+          <a href={repo} className="App-link">Sign In ✍️</a>
         </p>
       </header>
     </div>
