@@ -86,33 +86,35 @@
 <body>
 
     <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
-        aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title" id="loginModalLabel">NAMUNGOONA PARENTS' JUNIOR SCHOOL PORTAL</h5>
-                    <!-- Disable close button -->
-                    <button type="button" class="close" aria-label="Close" style="display: none;">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="loginForm">
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password:</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <button type="button" class="btn btn-primary btn-block" onclick="validateLogin()">Login</button>
-                    </form>
-                </div>
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="loginModalLabel">NAMUNGOONA PARENTS' JUNIOR SCHOOL PORTAL</h5>
+                <!-- Disable close button -->
+                <button type="button" class="close" aria-label="Close" style="display: none;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="npjs@namungoona.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="****" required>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block" onclick="validateLogin()">Login</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
 
 
     <div class="jumbotron text-center">
@@ -239,7 +241,7 @@
                 // Play error sound
                 var audio = new Audio('https://www.soundjay.com/button/sounds/button-9.mp3');
                 audio.play();
-                alert("Invalid login credentials. Please try again.");
+                alert("Access denied! Wrong email or password");
             }
         }
     </script>
